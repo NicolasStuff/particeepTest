@@ -1,13 +1,10 @@
-import './App.css';
-import headerImg from './img/ocean-8-critique.jpeg'
-import logo from './logos/Spirit.png';
-import './comps/SideBarStyle.css'
-import './comps/HeaderStyle.css'
+import React from 'react'
+import logo from '../logos/Spirit.png';
+import './SideBarStyle.css'
 
-function App() {
-  return (
-    <div className="App">
-      <div className='bodyFlex'>
+export default function SideBar() {
+    return (
+        <div className='bodyFlex'>
             <div className='SideBar'>
                 <img src={logo} className='logoImg'></img>
 
@@ -24,11 +21,5 @@ function App() {
 
             </div>
         </div>
-        <div className='divHeaderImg'>
-            <img src={headerImg} className='imageHeader'></img>
-        </div>
-    </div>
-  );
+    )
 }
-
-export default App;

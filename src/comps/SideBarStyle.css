@@ -1,0 +1,51 @@
+.bodyFlex {
+    display: flex;
+    flex-direction: row;
+}
+
+.SideBar{
+    padding: 40px;
+    left: 0px;
+    /* background-color: red; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-right: 0.2px solid #C4C4C4;
+    border-width: 1px;
+}
+
+.logoImg {
+    width: auto;
+    height: 50px;
+}
+
+.CategoryTitle {
+    text-align: left;
+    /* background-color: blue; */
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    font-weight: 100;
+    color: #7A869C;
+}
+
+.CategoryContent {
+    text-align: left;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    color: #7A869C;
+}
+.CategoryContentSelected {
+    text-align: left;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    color: #333F62;
+    font-weight: bold;
+}
+.CategoryComps {
+    margin-top: 25px;
+    color: #7A869C;
+}
