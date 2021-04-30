@@ -10,23 +10,49 @@ import movies$ from './comps/movies.js'
 import { useState, useEffect } from 'react';
 import * as V from 'victory';
 import { VictoryPie } from 'victory';
-
+import Select from 'react-select'
+import Posts from './comps/Posts';
+import Pagination from './comps/Pagination';
+import axios from 'axios';
 
 function Item(props) {
   return <li>{props.value}</li>;
 }
 
 function App() {
-
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(4);
   const [dataMovies, setDataMovies] = useState([])
   useEffect(() => {
     console.log('movies$', movies$)
     movies$.then(
-      result => setDataMovies(result)
+      // result => setDataMovies(result),
+      result => setPosts(result),
     )
   }, [])
 
-  console.log('dataMovies', dataMovies)
+  console.log('posts', posts)
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  console.log('indexOfFirstPost', indexOfFirstPost)
+  console.log('indexOfFirstPost', indexOfFirstPost)
+  console.log('currentPosts', currentPosts)
+
+  // Change page
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
+
+  const options = [
+    { value: 4, label: '4' },
+    { value: 8, label: '8' },
+    { value: 12, label: '12' }
+  ]
+
   return (
 
     // SIDE BAR
@@ -61,49 +87,14 @@ function App() {
           </div>
         </div>
 
-      <div >
+        {/* CARD AND PAGINATION */}
 
-      </div>
-
-        {/* CARDS */}
-        <ul className='Cards'>
-          {dataMovies.map(function (item) {
-            return (
-              <div key={item.id} >
-                <div className='ImageCard'>
-                  <img className='Image' src={item.image}></img>
-                  <button className='dislikeButton'>
-                    <img src={Pass} className='pass' ></img>
-                  </button>
-                  <button className='likeButton'>
-                    <img src={heartBlue} className='pass' ></img>
-                  </button>
-                </div>
-
-                <div className='bodyFlex'>
-                  <div className='bodyColumn'>
-                    <text className='titleMovie'>{item.title}</text>
-                    <text className='category'>{item.category}</text>
-                  </div>
-                  <svg viewBox="-30 45 120 120"  >
-                    <VictoryPie
-                      colorScale={["green", "grey"]}
-                      standalone={false}
-                      width={120} height={120}
-                      data={[
-                        { x: ' ', y: item.likes }, { x: ' ', y: item.dislikes },
-                      ]}
-                      innerRadius={3}
-                      style={{
-                        labels: { fontSize: 20, fill: "white" },
-                      }}
-                    />
-                  </svg>
-                </div>
-              </div>
-            );
-          })}
-        </ul>
+        <Posts posts={currentPosts} />
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={posts.length}
+          paginate={paginate}
+        />
       </div>
     </div>
   );
