@@ -3,9 +3,13 @@ import headerImg from './img/headerImg.png'
 import logo from './logos/Spirit.png';
 import ArrowWhite from './logos/arrowRightWhite.png'
 import FavoriteWhite from './logos/FavoriteWhite.png'
+import Pass from './logos/pass.png'
+import heartBlue from './logos/heartBlue.png'
+import heartRed from './logos/heartRed.png';
 import movies$ from './comps/movies.js'
-import { useState, useEffect } from 'react'
-
+import { useState, useEffect } from 'react';
+import * as V from 'victory';
+import { VictoryPie } from 'victory';
 
 
 function Item(props) {
@@ -15,16 +19,18 @@ function Item(props) {
 function App() {
 
   const [dataMovies, setDataMovies] = useState([])
-
   useEffect(() => {
-
     console.log('movies$', movies$)
-    movies$.then(result => setDataMovies(result))
-    // setDataMovies(movies$)
+    movies$.then(
+      result => setDataMovies(result)
+    )
   }, [])
 
-  console.log('dataMovies',dataMovies)
+  console.log('dataMovies', dataMovies)
   return (
+
+    // SIDE BAR
+
     <div className="App">
       <div className='bodyFlex'>
         <div className='SideBar'>
@@ -40,6 +46,9 @@ function App() {
         <div>
         </div>
       </div>
+
+      {/* HEADER IMAGE */}
+
       <div className='divHeaderImg'>
         <div className='divHeaderImg'>
           <img src={headerImg} className='imageHeader'></img>
@@ -51,14 +60,46 @@ function App() {
             <img className='FavoriteWhite' src={FavoriteWhite}></img>
           </div>
         </div>
-        {/* {items.map((item) => <Item key={item.key} value={item} />)} */}
-        <ul>
+
+      <div >
+
+      </div>
+
+        {/* CARDS */}
+        <ul className='Cards'>
           {dataMovies.map(function (item) {
             return (
-              <div key={item.id}>
-                <img src={item.image}></img>
-                <h3>{item.title}</h3>
-                <p>{item.category}</p>
+              <div key={item.id} >
+                <div className='ImageCard'>
+                  <img className='Image' src={item.image}></img>
+                  <button className='dislikeButton'>
+                    <img src={Pass} className='pass' ></img>
+                  </button>
+                  <button className='likeButton'>
+                    <img src={heartBlue} className='pass' ></img>
+                  </button>
+                </div>
+
+                <div className='bodyFlex'>
+                  <div className='bodyColumn'>
+                    <text className='titleMovie'>{item.title}</text>
+                    <text className='category'>{item.category}</text>
+                  </div>
+                  <svg viewBox="-30 45 120 120"  >
+                    <VictoryPie
+                      colorScale={["green", "grey"]}
+                      standalone={false}
+                      width={120} height={120}
+                      data={[
+                        { x: ' ', y: item.likes }, { x: ' ', y: item.dislikes },
+                      ]}
+                      innerRadius={3}
+                      style={{
+                        labels: { fontSize: 20, fill: "white" },
+                      }}
+                    />
+                  </svg>
+                </div>
               </div>
             );
           })}
