@@ -10,70 +10,70 @@ import gone from '../img/gonegirl.jpeg'
 
 const movies = [
     {
-      id: '1',
+      id: '0',
       image: Ocean8,
       title: 'Oceans 8',
       category: 'Comedy',
       likes: 4,
       dislikes: 1,
     }, {
-      id: '2',
+      id: '1',
       image: MidnightSun,
       title: 'Midnight Sun',
       category: 'Comedy',
       likes: 2,
       dislikes: 0
     }, {
-      id: '3',
+      id: '2',
       image: inde,
       title: 'Les indestructibles 2',
       category: 'Animation',
       likes: 3,
       dislikes: 1
     }, {
-      id: '4',
+      id: '3',
       image: sans,
       title: 'Sans un bruit',
       category: 'Thriller',
       likes: 6,
       dislikes: 6
     }, {
-      id: '5',
+      id: '4',
       image: creed,
       title: 'Creed II',
       category: 'Drame',
       likes: 16,
       dislikes: 2
     }, {
-      id: '6',
+      id: '5',
       image: pulp,
       title: 'Pulp Fiction',
       category: 'Thriller',
       likes: 11,
       dislikes: 3
     }, {
-      id: '7',
+      id: '6',
       image: pulp,
       title: 'Pulp Fiction',
       category: 'Thriller',
       likes: 12333,
       dislikes: 32
     }, {
-      id: '8',
+      id: '7',
       image: seven,
       title: 'Seven',
       category: 'Thriller',
       likes: 2,
       dislikes: 1
     }, {
-      id: '9',
+      id: '8',
       image: ince,
       title: 'Inception',
       category: 'Thriller',
       likes: 2,
       dislikes: 1
     }, {
-      id: '10',
+      id: '9',
       image: gone,
       title: 'Gone Girl',
       category: 'Thriller',
