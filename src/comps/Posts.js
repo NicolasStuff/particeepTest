@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import * as V from 'victory';
 import { VictoryPie } from 'victory';
 import Pass from '../logos/pass.png'
@@ -9,24 +9,32 @@ import '../App.css';
 
 const Posts = ({ posts }) => {
 
+    console.log('posts POST JS', posts)
+    const [postState, setpostState] = useState();
+
+    let post = posts;
+
+    const deleteItem = (id) => {
+        post = post.splice(id, 1)
+        setpostState(post)
+    }
+
+    const addLikeItem = (item) => {
+    }
+
+    console.log('postState', postState)
+
     return (
-        // <ul className='list-group mb-4'>
-        //   {posts.map(post => (
-        //     <li key={post.id} className='list-group-item'>
-        //       {post.title}
-        //     </li>
-        //   ))}
-        // </ul>
         <ul className='Cards'>
             {posts.map(item => (
 
                 <div key={item.id} >
                     <div className='ImageCard'>
                         <img className='Image' src={item.image}></img>
-                        <button className='dislikeButton'>
+                        <button className='dislikeButton' onClick={() => deleteItem(item.id)}>
                             <img src={Pass} className='pass' ></img>
                         </button>
-                        <button className='likeButton'>
+                        <button className='likeButton' onClick={() => addLikeItem(item.id)}>
                             <img src={heartBlue} className='pass' ></img>
                         </button>
                     </div>
@@ -52,7 +60,6 @@ const Posts = ({ posts }) => {
                         </svg>
                     </div>
                 </div>
-            
             ))}
         </ul>
     );

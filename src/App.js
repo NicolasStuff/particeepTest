@@ -15,20 +15,21 @@ import Posts from './comps/Posts';
 import Pagination from './comps/Pagination';
 import axios from 'axios';
 
-function Item(props) {
-  return <li>{props.value}</li>;
-}
+import posts from'./reducers/posts-reducer' //Import du reducer
+
+import { Provider } from 'react-redux';	//Import du Provider
+import { createStore, combineReducers } from 'redux';
+
+const store = createStore(combineReducers({posts}));
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
-  const [dataMovies, setDataMovies] = useState([])
+
   useEffect(() => {
     console.log('movies$', movies$)
     movies$.then(
-      // result => setDataMovies(result),
       result => setPosts(result),
     )
   }, [])
@@ -54,50 +55,55 @@ function App() {
   ]
 
   return (
+    <Provider store={store}>
 
-    // SIDE BAR
+        // SIDE BAR
 
-    <div className="App">
-      <div className='bodyFlex'>
-        <div className='SideBar'>
-          <img src={logo} className='logoImg'></img>
-          <text className='CategoryTitle'>CATEGORY</text>
-          <div className='CategoryComps'>
-            <text className='CategoryContent'>Comedy</text>
-            <text className='CategoryContentSelected'>Animation</text>
-            <text className='CategoryContentSelected'>Thriller</text>
-            <text className='CategoryContent'>Drame</text>
+      <div className="App">
+        <div className='bodyFlex'>
+          <div className='SideBar'>
+            <img src={logo} className='logoImg'></img>
+            <text className='CategoryTitle'>CATEGORY</text>
+            <div className='CategoryComps'>
+              <text className='CategoryContent'>Comedy</text>
+              <text className='CategoryContentSelected'>Animation</text>
+              <text className='CategoryContentSelected'>Thriller</text>
+              <text className='CategoryContent'>Drame</text>
+            </div>
+          </div>
+          <div>
           </div>
         </div>
-        <div>
-        </div>
-      </div>
 
-      {/* HEADER IMAGE */}
+        {/* HEADER IMAGE */}
 
-      <div className='divHeaderImg'>
         <div className='divHeaderImg'>
-          <img src={headerImg} className='imageHeader'></img>
-          <div className='WatchNowComp'>
-            <text className='WatchNowText'>Regarder maintenant </text>
-            <img className='ArrowWhite' src={ArrowWhite}></img>
+          <div className='divHeaderImg'>
+            <img src={headerImg} className='imageHeader'></img>
+            <div className='WatchNowComp'>
+              <text className='WatchNowText'>Regarder maintenant </text>
+              <img className='ArrowWhite' src={ArrowWhite}></img>
+            </div>
+            <div className='WatchNowFav'>
+              <img className='FavoriteWhite' src={FavoriteWhite}></img>
+            </div>
           </div>
-          <div className='WatchNowFav'>
-            <img className='FavoriteWhite' src={FavoriteWhite}></img>
+
+          {/* CARD AND PAGINATION */}
+          <div className='container mt-5'>
+            <Posts posts={currentPosts} />
+            <Pagination
+              postsPerPage={postsPerPage}
+              totalPosts={posts.length}
+              paginate={paginate}
+            />
           </div>
         </div>
-
-        {/* CARD AND PAGINATION */}
-
-        <Posts posts={currentPosts} />
-        <Pagination
-          postsPerPage={postsPerPage}
-          totalPosts={posts.length}
-          paginate={paginate}
-        />
       </div>
-    </div>
+    </Provider>
   );
 }
+
+
 
 export default App;
