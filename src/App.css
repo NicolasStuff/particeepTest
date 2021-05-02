@@ -10,6 +10,8 @@
 }
 
 .SideBar{
+  position: fixed;
+  z-index: 999;
   padding: 40px;
   left: 0px;
   height: 100vh;
@@ -19,7 +21,9 @@
   border-right: 0.2px solid #C4C4C4;
   border-width: 1px;
 }
-
+.marginLeft {
+  margin-left: 150px
+}
 .logoImg {
   width: 100px;
   height: auto;

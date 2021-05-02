@@ -80,20 +80,13 @@ function App() {
 
     // console.log('POST DANS LE DELETE', post)
     setPosts(posts.filter(object => object.id != index))
-    // setPosts(posts.splice(item.id, 1));
   }
 
   const addLikeItem = (index) => {
 
-    // to complete
 
   }
 
-
-  // const handleChangenumber = (postsPerPage) => {
-  //   console.log('cardsNumber', cardsNumber)
-  //   // setPostsPerPage(cardsNumber);
-  // }
 
 
   const options = [
@@ -124,7 +117,7 @@ function App() {
 
       {/* HEADER IMAGE */}
 
-      <div>
+      <div className='marginLeft'>
         <div className='divHeaderImg'>
           <img src={headerImg} className='imageHeader'></img>
         </div>
