@@ -17,15 +17,46 @@ import axios from 'axios';
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const [category, setCategory] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
+
+  let temps = []
   useEffect(() => {
     // console.log('movies$', movies$)
     movies$.then(
-      result => setPosts(result),
+      result => {
+        // console.log('result', result)
+        setPosts(result)
+        for(var i = 0; i < result.length; i++) {
+          temps.push(result[i].category)
+          // console.log('temps', temps)
+        }
+        setCategory([...new Set(temps)])
+      }
     )
   }, [])
 
+  const handleFilter = (itemCategory) => {
+    let tempCategory = [];
+    // console.log('itemCategory', itemCategory);
+
+    movies$.then(
+      result => {
+        // console.log('result', result);
+        for( var i = 0; i < result.length; i++) {
+          if(result[i].category == itemCategory) {
+            tempCategory.push(result[i]);
+          }
+        }
+        console.log('tempCategory', tempCategory);
+        setPosts(tempCategory);
+      }
+    )
+
+  }
+
+  console.log('category', category)
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -39,10 +70,6 @@ function App() {
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   let post = posts;
-  const months = ['Jan', 'March', 'April', 'June'];
-  months.splice(3, 1,);
-  // replaces 1 element at index 4
-  console.log(months);
 
   const deleteItem = (index) => {
 
@@ -77,12 +104,11 @@ function App() {
         <div className='SideBar'>
           <img src={logo} className='logoImg'></img>
           <text className='CategoryTitle'>CATEGORY</text>
-          <div className='CategoryComps'>
-            <text className='CategoryContent'>Comedy</text>
-            <text className='CategoryContentSelected'>Animation</text>
-            <text className='CategoryContentSelected'>Thriller</text>
-            <text className='CategoryContent'>Drame</text>
+          {category.map((item, index) => (
+          <div className='CategoryComps' key={index}>
+            <button className='CategoryContent' onClick={ () => handleFilter(item)}>{item}</button>
           </div>
+          ))}
         </div>
         <div>
         </div>
