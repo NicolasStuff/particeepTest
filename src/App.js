@@ -19,7 +19,9 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [category, setCategory] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(4);
+  const [postsPerPage, setPostsPerPage] = useState({value: 4});
+
+  console.log('postsPerPage', postsPerPage)
 
   let temps = [];
   let tempCategory = [];
@@ -49,7 +51,7 @@ function App() {
             tempCategory.push(result[i]);
           }
         }
-        console.log('tempCategory', tempCategory);
+        // console.log('tempCategory', tempCategory);
         setPosts(tempCategory);
       }
     )
@@ -57,8 +59,8 @@ function App() {
 
   console.log('category', category)
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const indexOfLastPost = currentPage * postsPerPage.value;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage.value;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   console.log('indexOfFirstPost', indexOfFirstPost);
@@ -72,7 +74,7 @@ function App() {
 
   const deleteItem = (index) => {
 
-    console.log('index', index)
+    // console.log('index', index)
     // console.log('post AVANT LE DELETE', post);
     post = post.splice(index, 1)
 
@@ -87,10 +89,17 @@ function App() {
 
   }
 
+
+  // const handleChangenumber = (postsPerPage) => {
+  //   console.log('cardsNumber', cardsNumber)
+  //   // setPostsPerPage(cardsNumber);
+  // }
+
+
   const options = [
-    { value: 4, label: '4' },
-    { value: 8, label: '8' },
-    { value: 12, label: '12' }
+    { value: 4, label: '4 éléments sur la page' },
+    { value: 8, label: '8 éléments sur la page' },
+    { value: 12, label: '12 éléments sur la page' }
   ]
 
   return (
@@ -160,11 +169,15 @@ function App() {
             ))}
           </div>
           {/* <Posts posts={currentPosts} /> */}
-          <Pagination
-            postsPerPage={postsPerPage}
-            totalPosts={posts.length}
-            paginate={paginate}
-          />
+          <div className='bodyFlex'>
+            <Pagination
+              postsPerPage={postsPerPage.value}
+              totalPosts={posts.length}
+              paginate={paginate}
+            />
+            
+            <Select options={options} className='selection' onChange={setPostsPerPage}/>
+          </div>
         </div>
       </div>
     </div>
