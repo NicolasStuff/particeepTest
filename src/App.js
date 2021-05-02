@@ -21,7 +21,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(4);
 
-  let temps = []
+  let temps = [];
+  let tempCategory = [];
   useEffect(() => {
     // console.log('movies$', movies$)
     movies$.then(
@@ -38,14 +39,13 @@ function App() {
   }, [])
 
   const handleFilter = (itemCategory) => {
-    let tempCategory = [];
-    // console.log('itemCategory', itemCategory);
 
     movies$.then(
       result => {
         // console.log('result', result);
         for( var i = 0; i < result.length; i++) {
-          if(result[i].category == itemCategory) {
+          if(result[i].category == itemCategory  ) {
+            
             tempCategory.push(result[i]);
           }
         }
@@ -53,7 +53,6 @@ function App() {
         setPosts(tempCategory);
       }
     )
-
   }
 
   console.log('category', category)
@@ -116,21 +115,14 @@ function App() {
 
       {/* HEADER IMAGE */}
 
-      <div className='divHeaderImg'>
+      <div>
         <div className='divHeaderImg'>
           <img src={headerImg} className='imageHeader'></img>
-          <div className='WatchNowComp'>
-            <text className='WatchNowText'>Regarder maintenant </text>
-            <img className='ArrowWhite' src={ArrowWhite}></img>
-          </div>
-          <div className='WatchNowFav'>
-            <img className='FavoriteWhite' src={FavoriteWhite}></img>
-          </div>
         </div>
 
         {/* CARD AND PAGINATION */}
-        <div className='container mt-5'>
-          <ul className='Cards'>
+        <div >
+          <div className='Cards'>
             {currentPosts.map((item, index) => (
 
               <div key={item.id} >
@@ -149,7 +141,7 @@ function App() {
                     <text className='titleMovie'>{item.title}</text>
                     <text className='category'>{item.category}</text>
                   </div>
-                  <svg viewBox="-30 45 120 120"  >
+                  <svg width="120" height="120" >
                     <VictoryPie
                       colorScale={["green", "grey"]}
                       standalone={false}
@@ -166,7 +158,7 @@ function App() {
                 </div>
               </div>
             ))}
-          </ul>
+          </div>
           {/* <Posts posts={currentPosts} /> */}
           <Pagination
             postsPerPage={postsPerPage}
