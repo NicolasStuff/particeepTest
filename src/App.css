@@ -1,4 +1,9 @@
-.App {
+.colorMain {
+  background-color: black;
+  height: 100vh;
+}
+
+.flexContent {
   display: flex;
   flex-direction: row;
 }
@@ -6,20 +11,21 @@
 .bodyFlex {
   display: flex;
   flex-direction: row;
-  
 }
 
 .SideBar{
   position: fixed;
   z-index: 999;
-  padding: 40px;
+  padding-left: 20px;
+  padding-top: 20px;
+  background-color: black;
   left: 0px;
   height: 100vh;
   width: 150px;
   display: flex;
   flex-direction: column;
-  border-right: 0.2px solid #C4C4C4;
-  border-width: 1px;
+  /* border-right: 0.2px solid #C4C4C4;
+  border-width: 1px; */
 }
 .marginLeft {
   margin-left: 150px
